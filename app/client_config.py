@@ -53,18 +53,20 @@ def get_user_config(key):
     return conf.get(key)
 
 
-def save_user_config(key, value):
+def save_user_config(key, value, now_write_file=False):
     conf[key] = value
-    config.set('default', key, value)
+    config.set('default', key, value, now_write_file)
 
 
 def clear_user_config():
+    global conf
+    conf = {}
     if os.path.exists(user_config_file):
         os.remove(user_config_file)
     if os.path.exists(cookie_util.cookie_file):
         os.remove(cookie_util.cookie_file)
-    # if os.path.exists(cities_file):
-    #     os.remove(cities_file)
+    if os.path.exists(cities_file):
+        os.remove(cities_file)
 
 
 def has_user_config():

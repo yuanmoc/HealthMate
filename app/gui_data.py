@@ -1,14 +1,19 @@
 import json
+import os
 import threading
-import time
 from datetime import datetime, timedelta
 
 from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtCore import pyqtSignal, QEvent, Qt, QDateTime
-
 import sys
 from app import client_util, client_config, user_log_util
+
+# determine if application is a script file or frozen exe
+if getattr(sys, 'frozen', False):
+    path = os.path.dirname(sys.executable)
+elif __file__:
+    path = os.path.dirname(__file__)
 
 data_format = '%Y-%m-%d'
 q_datetime_format = 'yyyy-MM-dd HH:mm:ss'
@@ -57,14 +62,13 @@ class Login_Form(QtWidgets.QDialog):
         super(Login_Form, self).show()
 
     def init_ui(self):
-        return uic.loadUi("app/login-ui.ui", self)
+        return uic.loadUi(path+"/login-ui.ui", self)
 
     def reset(self):
         self.ui.username.clear()
         self.ui.pwd.clear()
 
     def login(self):
-
         username = self.ui.username.text()
         pwd = self.ui.pwd.text()
         if username is None or username == '' \
@@ -73,15 +77,14 @@ class Login_Form(QtWidgets.QDialog):
             return
         user_log_util.getLogger().info('用户名：%s', username)
         client_config.save_user_config('username', username)
+        self.ui.login_button.setEnabled(False)
         flag = client_util.init_login_cookie(username, pwd)
         if flag:
             self.login_status.emit()
             self.my_close()
-            return
         else:
             QMessageBox.warning(self, "标题", "登录失败", QMessageBox.StandardButton.Ok)
-
-
+        self.ui.login_button.setEnabled(True)
 class Main_Form(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()
@@ -136,9 +139,10 @@ class Main_Form(QtWidgets.QWidget):
         self.init_data()
 
         self.task_thread = None
+        self.task_activity = False
 
     def init_ui(self):
-        return uic.loadUi("app/main-ui.ui", self)
+        return uic.loadUi(path+"/main-ui.ui", self)
 
     def input_log(self, msg):
         if isinstance(msg, str):
@@ -162,14 +166,18 @@ class Main_Form(QtWidgets.QWidget):
 
 
     def login_button_click(self):
+        self.ui.login_button.setEnabled(False)
         if self.ui.login_button.text() == '退出登录':
             self.logout()
+            self.ui.login_button.setEnabled(True)
             return True
         flag = client_util.check_login_status()
         if flag:
             self.login_change_status()
+            self.ui.login_button.setEnabled(True)
             return True
         self.login_form.show()
+        self.ui.login_button.setEnabled(True)
         return False
 
     def login_change_status(self):
@@ -181,13 +189,14 @@ class Main_Form(QtWidgets.QWidget):
         self.ui.login_button.setText('点击登录')
 
     def init_data(self):
-        if not client_util.check_login_status():
+        username = client_config.get_user_config('username')
+        if username == '' or username is None or not client_util.check_login_status():
             self.login_form.show()
             return
         self.ui.login_button.setText('退出登录')
         # 就诊人
         member_id = client_config.get_user_config('member_id')
-        if member_id > 0:
+        if member_id is not None and member_id > 0:
             self.member_select()
             index = self.ui.city_box.findData(member_id)
             self.ui.member_box.setCurrentIndex(index)
@@ -412,20 +421,22 @@ class Main_Form(QtWidgets.QWidget):
     def task_button_click(self):
         if self.ui.task_button.text() == '自动挂号':
             if self.task_thread is None or not self.task_thread.is_alive():
+                self.task_activity = True
                 self.task_thread = threading.Thread(target=self.task)
                 self.task_thread.daemon = True
                 self.task_thread.start()
                 self.ui.task_button.setText('挂号中')
         else:
             self.ui.task_button.setText('自动挂号')
+            self.task_activity = False
 
     def task(self):
-        time.sleep(0.5)
-        while self.ui.task_button.text() == '挂号中':
+        while self.task_activity:
             if client_util.registration_task():
                 user_log_util.getLogger().info('挂号成功')
                 self.ui.task_button.setText('自动挂号')
-        return
+                self.task_activity = False
+                return
 
 
     def clear_log(self, event):

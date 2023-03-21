@@ -73,36 +73,6 @@
        <property name="editable">
         <bool>true</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -275,36 +245,6 @@ margin-left: 40px;
        <property name="editable">
         <bool>true</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -380,36 +320,6 @@ margin-left: 40px;
        <property name="editable">
         <bool>true</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -486,36 +396,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="duplicatesEnabled">
         <bool>false</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>
@@ -623,36 +503,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
        <property name="editable">
         <bool>true</bool>
        </property>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>新建项目</string>
-        </property>
-       </item>
       </widget>
      </item>
     </layout>

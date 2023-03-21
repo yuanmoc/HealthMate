@@ -33,7 +33,7 @@ class Config(object):
             return self.config.get(section, option)
         return None
 
-    def set(self, section, option, value):
+    def set(self, section, option, value, now_write=False):
         if not self.config.has_section(section):
             self.config.add_section(section)
         if value is None:
@@ -44,6 +44,8 @@ class Config(object):
             value = str(value)
         self.config.set(section, option, value)
         self.change = True
+        if now_write:
+            self.config.write(open(self.config_file_path, "w"))
 
     def getConfigToDict(self, section, conf: dict):
         for key in conf:
