@@ -20,13 +20,20 @@
 - [ ] Windows桌面端APP
 
 
+
 # 使用方式一，命令行
 
-
-1、安装依赖
+1、打包子模块
 ```bash
-pip3 install -r requirements.txt
+cd package
+# 把子项目打包
+python ./setup.py bdist_wheel
+# 把打包好的模块安装到本地
+pip install ./disk/HealthMate-1.0.0-py3-none-any.whl
+# 返回主目录
+cd ../
 ```
+
 2、查看基本命令
 ```bash
 python3 main.py --help
@@ -58,13 +65,47 @@ python3 main.py init
 python3 main.py start
 ```
 
+# 使用方式二，打包MAC桌面应用程序（以mac m1为例）
+1、同样需要打包安装子模块
+```bash
+cd package
+# 把子项目打包
+python ./setup.py bdist_wheel
+# 把打包好的模块安装到本地
+pip install ./disk/HealthMate-1.0.0-py3-none-any.whl
+# 返回主目录
+cd ../
+```
+2、安装打包应用程序工具
+```bash
+pip install pyinstaller
+pip install Pillow
+```
+
+3、打包
+
+3.1 修改配置文件
+
+修改HealthMate.spec文件中的项目路径，修改成你本地的绝对路径。
+
+3.2 进行打包
+```bash
+pyinstaller  HealthMate.spec  
+```
+
+3.3 打包之后的位置
+
+在项目工程目录下的dist文件下，有一个HealthMate.app文件，这个就是打包出来的应用程序，可以直接运行使用。
+
+
+
 
 
 # 赞赏作者
 如果您觉得HealthMate对你有帮助，可以请作者喝杯咖啡哦～
 
 
-![code](app/yuanmoc_code.png)
+![code](./img/yuanmoc_code.png)
 
 
 # More

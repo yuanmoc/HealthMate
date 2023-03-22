@@ -1,15 +1,14 @@
+import random
 import re
 import json
 import time
 
 from utils import rsa_util, date_util, cookie_util, http_util
-from app import constants, client_config, user_log_util
-from fake_useragent import UserAgent
+from app import user_log_util
+from app import constants, client_config
 import datetime
 
 session = http_util.Session()
-
-ua = UserAgent()
 
 datetime_format = '%Y-%m-%d %H:%M:%S'
 
@@ -27,7 +26,7 @@ def requestBefore(**kwargs):
     cookie = cookie_util.get_cookie_string_from_file()
     if cookie:
         headers['Cookie'] = cookie
-    headers['User-Agent'] = ua.random
+    headers['User-Agent'] = random.choice(constants.ua)
     headers['Referer'] = constants.domain
     headers['origin'] = constants.domain
     kwargs['headers'] = headers

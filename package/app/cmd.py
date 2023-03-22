@@ -1,7 +1,7 @@
 import threading
 
 import click
-from app import info, client_config, client_util
+from app import info, client_util, client_config
 
 
 @click.group()

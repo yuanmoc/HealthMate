@@ -7,13 +7,10 @@ from PyQt6 import QtWidgets, uic
 from PyQt6.QtWidgets import QMessageBox
 from PyQt6.QtCore import pyqtSignal, QEvent, Qt, QDateTime
 import sys
-from app import client_util, client_config, user_log_util
+from app import user_log_util, client_util, client_config, ui_dir
 
-# determine if application is a script file or frozen exe
-if getattr(sys, 'frozen', False):
-    path = os.path.dirname(sys.executable)
-elif __file__:
-    path = os.path.dirname(__file__)
+login_ui = os.path.join(ui_dir, 'login-ui.ui')
+main_ui = os.path.join(ui_dir, 'main-ui.ui')
 
 data_format = '%Y-%m-%d'
 q_datetime_format = 'yyyy-MM-dd HH:mm:ss'
@@ -62,7 +59,7 @@ class Login_Form(QtWidgets.QDialog):
         super(Login_Form, self).show()
 
     def init_ui(self):
-        return uic.loadUi(path+"/login-ui.ui", self)
+        return uic.loadUi(login_ui, self)
 
     def reset(self):
         self.ui.username.clear()
@@ -142,7 +139,7 @@ class Main_Form(QtWidgets.QWidget):
         self.task_activity = False
 
     def init_ui(self):
-        return uic.loadUi(path+"/main-ui.ui", self)
+        return uic.loadUi(main_ui, self)
 
     def input_log(self, msg):
         if isinstance(msg, str):
